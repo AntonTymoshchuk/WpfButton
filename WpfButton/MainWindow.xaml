@@ -1,0 +1,50 @@
+﻿<Window x:Class="WpfButton.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfButton"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="500">
+    <Window.Resources>
+        <ControlTemplate x:Key="listBox" TargetType="ListBox">
+            <Border Background="Maroon">
+                <ItemsPresenter/>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="button" TargetType="Button">
+            <Border Background="Gainsboro" Margin="0" Width="500" Height="30">
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color" Duration="0:0:0.2" From="Gainsboro" To="Gray"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetProperty="Background.Color" Duration="0:0:0.2" From="Gray" To="Gainsboro"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <ContentPresenter/>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <ListBox x:Name="listBox" Template="{StaticResource listBox}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Button Template="{StaticResource button}" Content="{Binding Name}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>
